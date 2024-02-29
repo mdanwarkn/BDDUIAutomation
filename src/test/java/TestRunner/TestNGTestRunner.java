@@ -14,8 +14,9 @@ import org.testng.annotations.DataProvider;
 
 public class TestNGTestRunner extends AbstractTestNGCucumberTests {
 
+    @Override
     @DataProvider(parallel = true)
-    public Object[][] scenario(){
+    public Object[][] scenarios(){
         return super.scenarios();
     }
 }
