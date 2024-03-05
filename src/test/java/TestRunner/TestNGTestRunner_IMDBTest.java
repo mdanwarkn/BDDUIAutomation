@@ -5,14 +5,15 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/IMDBAdvancedSearch.feature",
         glue = {"stepdefinition"},
+        tags = "@IMDBTest",
         publish = true,
         monochrome = true,
-        plugin= {"pretty","html:target/cucumber-reports.html"}
+        plugin= {"pretty" ,"html:target/cucumber-reports_IMDBTest.html"}
 )
 
-public class TestNGTestRunner extends AbstractTestNGCucumberTests {
+public class TestNGTestRunner_IMDBTest extends AbstractTestNGCucumberTests {
 
     @Override
     @DataProvider(parallel = true)

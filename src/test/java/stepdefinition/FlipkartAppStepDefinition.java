@@ -20,7 +20,7 @@ public class FlipkartAppStepDefinition {
     HomePage homePage;
     SearchPage searchPage;
 
-    @Before
+    @Before("@FlipkartTest")
     public void setUpDriver(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
@@ -28,7 +28,7 @@ public class FlipkartAppStepDefinition {
         softAssert = new SoftAssert();
     }
 
-    @After
+    @After("@FlipkartTest")
     public void closeBrowser(){
         driver.quit();
         softAssert.assertAll();
