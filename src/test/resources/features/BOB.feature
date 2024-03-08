@@ -1,3 +1,4 @@
+@BOBTest
 Feature: Checking Bank of Baroda application
 
 @BOBReInvestmentTest

@@ -26,7 +26,7 @@ public class BOBStepDefinition extends BaseStepDefinition {
 
     private FixedDepositCalculator fixedDepositCalculator;
 
-    @Before
+    @Before("@BOBTest")
     public void setUpDriver(){
         System.out.println("********** Driver Set up");
         ChromeOptions options = new ChromeOptions();
@@ -36,7 +36,7 @@ public class BOBStepDefinition extends BaseStepDefinition {
         softAssert = new SoftAssert();
     }
 
-    @After
+    @After("@BOBTest")
     public void closeBrowser(){
         System.out.println("****** Driver closing");
         driver.quit();

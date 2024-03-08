@@ -7,7 +7,7 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "src/test/resources/features/BOB.feature",
         glue = {"stepdefinition"},
-        tags = "@BOBQuarterlyPayoutTest",
+        tags = "@BOBTest",
         publish = true,
         dryRun = false,
         monochrome = true,
