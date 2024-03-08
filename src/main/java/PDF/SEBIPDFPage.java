@@ -46,7 +46,9 @@ public class SEBIPDFPage extends BasePage {
     }
 
     public void verifyPDFDownloaded(String path){
-        File file = new File( path + File.separator + ORDER_PDF_NAME+".pdf");
+        String source = path + File.separator + ORDER_PDF_NAME+".pdf";
+        System.out.println("PDF Downloaded path : "+source);
+        File file = new File(source);
         if(!file.exists()){
             softAssert.assertTrue(false , "PDF file not downloaded");
         }
