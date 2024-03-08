@@ -1,5 +1,11 @@
-package base;
+package base.ui.pages;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -8,6 +14,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
+
+import static com.aventstack.extentreports.Status.FAIL;
+import static com.aventstack.extentreports.Status.PASS;
 
 public class BasePage {
 
@@ -33,6 +42,13 @@ public class BasePage {
 
     protected static final String TEXT = "//*[text()='%s']";
 
+    protected static final String FOLLOWING_INPUTBOX = "//*[text()='%s']/following::input[1]";
+
+    protected static final String EM_WITH_INDEX = "(//em)[%s]";
+
+    protected static final String FOLLOWING_SIBLING = "//*[normalize-space(text())='%s']/following-sibling::*";
+
+    protected static final String SPAN = "//span";
 
     protected WebDriver driver;
     protected SoftAssert softAssert;
@@ -64,6 +80,22 @@ public class BasePage {
         }
     }
 
+    public String verifyTextWhenVisible(By locator , String expectedText , int timeOut) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            String actualText = driver.findElement(locator).getText();
+            if(!actualText.equals(expectedText)){
+                softAssert.assertTrue(false , "Text is not matching<br>Actual Text :"+actualText+"<br>Expected Text :"+expectedText);
+                logAndScreenShotOnFailure("Expected Text not found<br>Actual Text :"+actualText+"<br>Expected Text :"+expectedText);
+            }
+            return actualText;
+        }catch(Exception e) {
+            softAssert.assertTrue(false , "\n\n" + e.getMessage()+"\n"+e.getStackTrace());
+            return null;
+        }
+    }
+
     public void verifyAttributeWhenVisible(By locator , String attribute , String expected , int timeOut) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
@@ -79,7 +111,9 @@ public class BasePage {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            driver.findElement(locator).sendKeys(text);
+            WebElement element = driver.findElement(locator);
+            element.clear();
+            element.sendKeys(text);
         }catch(Exception e) {
             softAssert.assertTrue(false , e.getMessage());
         }
@@ -90,6 +124,18 @@ public class BasePage {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
             driver.findElement(locator).click();
+        }catch(Exception e) {
+            softAssert.assertTrue(false , e.getMessage());
+        }
+    }
+
+    public void clickTheElementWhenVisibleUsingJS(By locator , int timeOut){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            WebElement element = driver.findElement(locator);
+            JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
+            javascriptExecutor.executeScript("arguments[0].click();",element);
         }catch(Exception e) {
             softAssert.assertTrue(false , e.getMessage());
         }
@@ -107,17 +153,6 @@ public class BasePage {
         }
     }
 
-    public void scrollToElementFalsePort(By locator , int timeOut){
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
-            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            WebElement element =  driver.findElement(locator);
-            JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
-            javascriptExecutor.executeScript("arguments[0].scrollIntoView(false);",element);
-        }catch(Exception e) {
-            softAssert.assertTrue(false , e.getMessage());
-        }
-    }
     public boolean verifyElementIsEnabled(By locator , int timeOut){
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
@@ -169,4 +204,11 @@ public class BasePage {
             return null;
         }
     }
+
+    public void logAndScreenShotOnFailure(String message){
+        ExtentTest testStep = ExtentCucumberAdapter.getCurrentStep();
+        String screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
+        testStep.log(FAIL, message , MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot).build());
+    }
+
 }

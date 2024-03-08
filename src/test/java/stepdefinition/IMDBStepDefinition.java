@@ -1,7 +1,6 @@
 package stepdefinition;
 
 import IMDB.ui.pages.AdvancedTileSearchPage;
-import PDF.SEBIPDFPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -13,11 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.asserts.SoftAssert;
+import utilities.ExcelUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class IMDBStepDefinition {
 
@@ -71,6 +69,6 @@ public class IMDBStepDefinition {
     @And("Store the results in output file")
     public void storeTheResultsInOutputFile() throws IOException, InvalidFormatException {
         String fileSource =  DOWNLOAD_FOLDER_PATH + File.separator + IMDB_WORKBOOK_NAME;
-        advancedTileSearchPage.writeDataToExcelFile(advancedTileSearchPage.outputRow , fileSource , IMDB_SHEET_NAME);
+        ExcelUtil.writeDataToExcelFile(advancedTileSearchPage.outputRow , fileSource , IMDB_SHEET_NAME);
     }
 }

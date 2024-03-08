@@ -5,6 +5,7 @@
         <class name="TestRunner.TestNGTestRunner_FlipkartTest"/>
         <class name="TestRunner.TestNGTestRunner_PDFTest"/>
         <class name="TestRunner.TestNGTestRunner_IMDBTest"/>
+        <class name="TestRunner.TestNGTestRunner_BOBTest"/>
     </classes>
 </test>
 </suite>

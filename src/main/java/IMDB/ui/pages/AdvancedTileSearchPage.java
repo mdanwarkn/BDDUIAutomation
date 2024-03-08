@@ -1,6 +1,6 @@
 package IMDB.ui.pages;
 
-import base.BasePage;
+import base.ui.pages.BasePage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -48,42 +48,6 @@ public class AdvancedTileSearchPage extends BasePage {
             }
             System.out.println(tiles);
             retrieveResultsUpdated = true;    
-        }
-    }
-
-
-    public List<String> getColumnNamesInExcel(String fileSource , String sheet) throws IOException, InvalidFormatException {
-        XSSFWorkbook workbook = new XSSFWorkbook(new File(fileSource));
-        Row row = workbook.getSheet(sheet).getRow(0);
-        List<String> colummnNames = new ArrayList<>();
-        System.out.println("Last Column : "+row.getLastCellNum());
-        for(int i = 0 ; i < row.getLastCellNum() ; i++){
-            colummnNames.add(row.getCell(i).getStringCellValue());
-        }
-        return colummnNames;
-    }
-
-    public void writeDataToExcelFile(Map<String,String> outputRow , String fileSource , String sheetName) throws IOException, InvalidFormatException {
-        FileInputStream inputStream = new FileInputStream(fileSource);
-        Workbook workbook = WorkbookFactory.create(inputStream);
-        Sheet sheet =  workbook.getSheet(sheetName);
-        List<String> columnNames =  getColumnNamesInExcel(fileSource , sheetName);
-        int lastRowNum = sheet.getLastRowNum();
-        System.out.println("Last Row : "+lastRowNum);
-        Row row = sheet.createRow(lastRowNum+1);
-        for(int  i = 0 ; i<columnNames.size() ; i++){
-            row.createCell(i).setCellValue(outputRow.get(columnNames.get(i)));
-        }
-        OutputStream fileOut = null;
-        try {
-            fileOut = new FileOutputStream(fileSource);
-            workbook.write(fileOut);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            workbook.close();
-            fileOut.flush();
-            fileOut.close();
         }
     }
 

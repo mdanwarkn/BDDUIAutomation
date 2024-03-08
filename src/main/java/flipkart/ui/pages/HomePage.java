@@ -1,6 +1,6 @@
 package flipkart.ui.pages;
 
-import base.BasePage;
+import base.ui.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 

@@ -1,6 +1,6 @@
 package PDF;
 
-import base.BasePage;
+import base.ui.pages.BasePage;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -13,7 +13,6 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SEBIPDFPage extends BasePage {
