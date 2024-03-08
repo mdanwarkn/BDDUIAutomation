@@ -23,6 +23,11 @@ public class FixedDepositCalculator extends BasePage {
     public FixedDepositCalculator(WebDriver driver , SoftAssert softAssert){
         super(driver, softAssert);
         currentRow = new HashMap<>();
+        setDefaultDepositType();
+    }
+
+    public void setDefaultDepositType(){
+        currentRow.put("FDDepositType","Reinvestment (Cumulative)");
     }
 
     public void selectFixedDepositType(String depositType){
