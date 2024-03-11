@@ -1,15 +1,12 @@
 package bob.ui.pages;
 
-import base.ui.pages.BasePage;
+import common.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
-
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Currency;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

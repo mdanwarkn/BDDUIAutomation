@@ -1,6 +1,6 @@
 package PDF;
 
-import base.ui.pages.BasePage;
+import common.BasePage;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;

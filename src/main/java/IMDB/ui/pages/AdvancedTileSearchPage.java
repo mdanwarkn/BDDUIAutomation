@@ -1,12 +1,6 @@
 package IMDB.ui.pages;
 
-import base.ui.pages.BasePage;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import common.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 

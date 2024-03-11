@@ -1,4 +1,4 @@
-package base.ui.pages;
+package common;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -14,13 +14,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
+import java.util.List;
 
 import static com.aventstack.extentreports.Status.FAIL;
 import static com.aventstack.extentreports.Status.PASS;
 
 public class BasePage {
 
+
+    protected static final String LIST_CONTAINS_STRING = "//li[contains(string() , '%s')]";
+
     protected static final String INPUT_WITH_TITLE = "//input[@title='%s']";
+
+    protected static final String ELEMENT_WITH_ARIALABEL = "//*[@aria-label='%s']";
+
+    protected static final String INPUT_WITH_PLACEHOLDER = "//input[@placeholder='%s']";
 
     protected static final String BUTTON_WITH_TITLE = "//button[@title='%s']";
 
@@ -28,9 +36,13 @@ public class BasePage {
 
     protected static final String ELEMENT_WITH_CLASS = "//*[@class='%s']";
 
+    protected static final String ELEMENT_WITH_CLASS_INDEX = "(//*[@class='%s'])[%s]";
+
     protected static final String IFRAME_WITH_TITLE = "//iframe[@title='%s']";
 
     protected static final String ELEMENT_CONTAINS_CLASS = "//*[contains(@class,'%s')]";
+
+    protected static final String BUTTON_WITH_INDEX = "(//button[text()='%s'])['%s']";
 
     protected static final String ELEMENT_CONTAINS_CLASS_WITH_INDEX = ELEMENT_CONTAINS_CLASS + "[%s]";
 
@@ -43,6 +55,9 @@ public class BasePage {
     protected static final String TEXT = "//*[text()='%s']";
 
     protected static final String FOLLOWING_INPUTBOX = "//*[text()='%s']/following::input[1]";
+
+    protected static final String FOLLOWING_INPUTBOX = "//*[text()='%s']/following::input[1]";
+
 
     protected static final String EM_WITH_INDEX = "(//em)[%s]";
 
@@ -181,6 +196,20 @@ public class BasePage {
         }
     }
 
+    public List<WebElement> getWebElements(By locator , int timeOut){
+        try {
+            FluentWait wait = new FluentWait(driver)
+                    .withTimeout(Duration.ofSeconds(30))
+                    .pollingEvery(Duration.ofSeconds(2))
+                    .ignoring(NotFoundException.class);
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return driver.findElements(locator);
+        }catch(Exception e) {
+            softAssert.assertTrue(false , e.getMessage());
+            return null;
+        }
+    }
 
     public  void selectByVisibleText(By locator , String option , int timeOut){
         try {
@@ -202,6 +231,16 @@ public class BasePage {
         }catch(Exception e) {
             softAssert.assertTrue(false , e.getMessage());
             return null;
+        }
+    }
+
+    public  boolean elementExistsNoReporting(By locator ,  int timeOut){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return true;
+        }catch(Exception e) {
+            return false;
         }
     }
 
