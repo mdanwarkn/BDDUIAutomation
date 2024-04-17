@@ -11,7 +11,9 @@ public class StaticClass {
 
     public static final int IMPLICIT_TIMEOUT = 5;
 
-    public static final String INPUT_SHEET_PATH = System.getProperty("user.dir")+ File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator;
+    public static final String INPUT_SHEET_PATH = System.getProperty("user.dir")+ File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator;
+    public static final String SCREENSHOT_PATH = System.getProperty("user.dir")+ File.separator+"Screenshots"+File.separator;
+
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER_FORMAT1 = DateTimeFormatter.ofPattern("d MMMM yyyy");
 

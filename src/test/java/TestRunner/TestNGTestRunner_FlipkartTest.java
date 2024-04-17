@@ -10,8 +10,9 @@ import org.testng.annotations.DataProvider;
         tags = "@FlipkartTest",
         publish = true,
         monochrome = true,
-        plugin= {"pretty","html:target/cucumber-reports_FlipkartTest.html"}
+        plugin= {"pretty","html:target/cucumber-reports_BOBTest.html","com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
+
 
 public class TestNGTestRunner_FlipkartTest extends AbstractTestNGCucumberTests {
 

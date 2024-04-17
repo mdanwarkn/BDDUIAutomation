@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
         publish = true,
         tags= "@PDFTest",
         monochrome = true,
-        plugin= {"pretty","html:target/cucumber-reports_PDFTest.html"}
+        plugin= {"pretty","html:target/cucumber-reports_BOBTest.html","com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 
 public class TestNGTestRunner_PDFTest extends AbstractTestNGCucumberTests {

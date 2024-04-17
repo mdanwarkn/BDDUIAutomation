@@ -56,8 +56,9 @@ public class ExcelUtil {
             Row row = sheet.getRow(i);
             Map<String,String> dataRow = new HashMap<>();
             for(int  j = 0 ; j<columnNames.size() ; j++){
-                Cell cell = row.getCell(j);
+                Cell cell = row.getCell(j , Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 dataRow.put(columnNames.get(j) , cell.getStringCellValue());
+                objArr[i-1] = new Object[1];
                 objArr[i-1][0] = dataRow;
             }
         }

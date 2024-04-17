@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
     }
 
     public void enterValueAndClickSearch(String input){
-        enterValueWhenVisible(getLocator(INPUT_WITH_TITLE , SEARCH_BOX_TEXT),input , 30);
+        clearAndEnterValueWhenVisible(getLocator(INPUT_WITH_TITLE , SEARCH_BOX_TEXT),input , 30);
         clickTheElementWhenVisible(getLocator(BUTTON_WITH_TITLE , SEARCH_BOX_TEXT),30);
     }
 

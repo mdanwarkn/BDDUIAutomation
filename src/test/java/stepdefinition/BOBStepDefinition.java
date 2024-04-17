@@ -4,6 +4,7 @@ import base.ui.tests.BaseStepDefinition;
 import bob.ui.pages.FixedDepositCalculator;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import io.cucumber.java.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -13,11 +14,13 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.asserts.SoftAssert;
+import utilities.DriverUtil;
 import utilities.ExcelUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class BOBStepDefinition extends BaseStepDefinition {
 
@@ -27,8 +30,7 @@ public class BOBStepDefinition extends BaseStepDefinition {
     private FixedDepositCalculator fixedDepositCalculator;
 
     @Before("@BOBTest")
-    public void setUpDriver(){
-        System.out.println("********** Driver Set up");
+    public void setUpDriver(Scenario s){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         driver =  new ChromeDriver(options);
@@ -75,5 +77,11 @@ public class BOBStepDefinition extends BaseStepDefinition {
         String fileSource =  DOWNLOAD_FOLDER_PATH + File.separator + OUTPUT_WORKBOOK_NAME;
         ExcelUtil.writeDataToExcelFile(fixedDepositCalculator.currentRow, fileSource , OUTPUT_SHEET_NAME);
     }
+  /*  @AfterStep
+    public void captureScreenshot(){
+        fixedDepositCalculator.takeScreenShot("Step Completed");
+        *//*DriverUtil driverUtil = new DriverUtil(driver);
+        s.attach(driverUtil.takeScreenShotInBytes() , "image/png" , "Screenshot after each step");*//*
+    }*/
 
 }
